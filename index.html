@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio | Achmad Zaky Ananta</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    <!-- Tailwind CSS (Output) -->
+    <link href="./src/output.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Boxicons untuk Icon -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom Animations */
+        @keyframes fade-in-up {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fade-in-up 0.8s ease-out forwards;
+        }
+        /* Glassmorphism */
+        .glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Gradient Text */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-300 antialiased selection:bg-blue-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="fixed w-full top-0 z-50 glass transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold text-white tracking-tighter">
+                Achmad Zaky<span class="text-blue-500">Ananta</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#beranda" class="text-sm font-medium hover:text-blue-400 transition-colors">Beranda</a>
+                <a href="#tentang" class="text-sm font-medium hover:text-blue-400 transition-colors">Tentang</a>
+                <a href="#keahlian" class="text-sm font-medium hover:text-blue-400 transition-colors">Keahlian</a>
+                <a href="#projek" class="text-sm font-medium hover:text-blue-400 transition-colors">Projek</a>
+                <a href="#kontak" class="px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-all shadow-[0_0_15px_rgba(37,99,235,0.5)] hover:shadow-[0_0_25px_rgba(37,99,235,0.7)]">
+                    Hubungi Saya
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-2xl text-white focus:outline-none" id="mobile-menu-btn">
+                <i class='bx bx-menu'></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="md:hidden absolute top-full left-0 w-full bg-slate-900 border-b border-slate-800 transition-all duration-300 overflow-hidden max-h-0" id="mobile-menu">
+            <div class="flex flex-col px-6 py-4 space-y-4 shadow-xl">
+                <a href="#beranda" class="text-base font-medium hover:text-blue-400 mobile-link">Beranda</a>
+                <a href="#tentang" class="text-base font-medium hover:text-blue-400 mobile-link">Tentang</a>
+                <a href="#keahlian" class="text-base font-medium hover:text-blue-400 mobile-link">Keahlian</a>
+                <a href="#projek" class="text-base font-medium hover:text-blue-400 mobile-link">Projek</a>
+                <a href="#kontak" class="text-base font-medium text-blue-400 mobile-link">Hubungi Saya</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+        <!-- Background Elements Start -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-pulse"></div>
+        <div class="absolute top-40 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+        <!-- Background Elements End -->
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                
+                <!-- Text Content -->
+                <div class="flex-1 text-center md:text-left mt-10 md:mt-0 animate-fade-in-up">
+                    <p class="text-blue-500 font-semibold tracking-wide mb-2">👋 Halo, perkenalkan saya</p>
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight">
+                        Achmad Zaky Ananta
+                    </h1>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">
+                        Junior Web Developer
+                    </h2>
+                    <p class="text-lg text-slate-400 mb-8 max-w-xl mx-auto md:mx-0 leading-relaxed">
+                        Saya membangun pengalaman digital yang menarik, responsif, dan mudah digunakan. Berfokus pada penulisan kode yang bersih dan desain modern.
+                    </p>
+                    
+                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                        <a href="#projek" class="px-8 py-3.5 bg-white text-slate-900 font-semibold rounded-full hover:bg-slate-200 transition-all flex items-center gap-2 group">
+                            Lihat Projek <i class='bx bx-right-arrow-alt text-xl group-hover:translate-x-1 transition-transform'></i>
+                        </a>
+                        <a href="#kontak" class="px-8 py-3.5 border border-slate-700 bg-slate-800/50 text-white font-semibold rounded-full hover:bg-slate-800 transition-all">
+                            Download CV
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image / Visual -->
+                <div class="flex-1 w-full max-w-md animate-fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="relative group">
+                        <!-- Dekorasi border luar -->
+                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                        <div class="relative aspect-square rounded-full border-2 border-slate-800 overflow-hidden bg-slate-900 shadow-2xl">
+                            <!-- GANTI GAMBAR INI -->
+                            <img src="img/profil.jpg" alt="Foto Profil" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang Section -->
+    <section id="tentang" class="py-24 bg-slate-900/50">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+                
+                <div class="flex-1 w-full relative">
+                    <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
+                        <!-- GANTI GAMBAR INI -->
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Me working" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-300">
+                    </div>
+                </div>
+
+                <div class="flex-1">
+                    <h3 class="text-blue-500 font-semibold mb-2 uppercase tracking-wider text-sm">Tentang Saya</h3>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Secercah cerita tentang siapa saya.</h2>
+                    <p class="text-slate-400 mb-6 leading-relaxed">
+                        Halo! Nama saya Achmad Zaky Ananta dan saya sangat menyukai dunia pengembangan web. Ketertarikan saya pada web development dimulai pada 2024, sejak saat itu saya terus belajar dan bereksplorasi membangun berbagai solusi digital.
+                    </p>
+                    <p class="text-slate-400 mb-8 leading-relaxed">
+                        Fokus utama saya saat ini adalah membangun aplikasi web yang inklusif, dapat diakses, dan ramah pengguna untuk berbagai kalangan. Saya senang bekerja menelusuri batas antara desain dan implementasi teknik yang kokoh.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 border-l-2 border-slate-800 pl-6">
+                        <div>
+                            <h4 class="text-4xl font-bold text-white mb-1">4+</h4>
+                            <p class="text-sm text-slate-500">Tahun Pengalaman</p>
+                        </div>
+                        <div>
+                            <h4 class="text-4xl font-bold text-white mb-1">XX+</h4>
+                            <p class="text-sm text-slate-500">Projek Selesai</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Keahlian Section -->
+    <section id="keahlian" class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h3 class="text-blue-500 font-semibold mb-2 uppercase tracking-wider text-sm">Keahlian</h3>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Teknologi yang Saya Gunakan</h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">Saya selalu mencoba menggunakan teknologi terbaru yang relevan untuk menyelesaikan masalah dan menciptakan produk terbaik.</p>
+            </div>
+
+            <!-- Grid Keahlian -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                
+                <!-- Skill Item -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group flex-1">
+                    <i class='bx bxl-html5 text-5xl text-orange-500 mb-3 group-hover:animate-bounce'></i>
+                    <span class="text-slate-300 font-medium font-sm text-center">HTML5</span>
+                </div>
+                
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group">
+                    <i class='bx bxl-css3 text-5xl text-blue-500 mb-3 group-hover:animate-bounce'></i>
+                    <span class="text-slate-300 font-medium font-sm">CSS3</span>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group">
+                    <i class='bx bxl-javascript text-5xl text-yellow-400 mb-3 group-hover:animate-bounce'></i>
+                    <span class="text-slate-300 font-medium font-sm">JavaScript</span>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group">
+                    <i class='bx bxl-tailwind-css text-5xl text-cyan-400 mb-3 group-hover:animate-bounce'></i>
+                    <span class="text-slate-300 font-medium font-sm">Tailwind CSS</span>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group">
+                    <i class='bx bxl-react text-5xl text-cyan-500 mb-3 group-hover:animate-bounce'></i>
+                    <span class="text-slate-300 font-medium font-sm">React JS</span>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group">
+                    <i class='bx bxl-git text-5xl text-red-500 mb-3 group-hover:animate-bounce'></i>
+                    <span class="text-slate-300 font-medium font-sm">Git</span>
+                </div>
+
+                <!-- Tambahkan lebih banyak skill sesuai kebutuhan -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Projek Section -->
+    <section id="projek" class="py-24 bg-slate-900/50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h3 class="text-blue-500 font-semibold mb-2 uppercase tracking-wider text-sm">Projek Pilihan</h3>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Beberapa Karya Terbaru Saya</h2>
+            </div>
+
+            <!-- Grid Projek -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Projek Card 1 -->
+                <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden group hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/20">
+                    <div class="relative overflow-hidden aspect-video">
+                        <!-- GANTI GAMBAR PROJEK -->
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projek 1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                            <a href="#" class="p-3 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition hover:scale-110" title="Live Preview"><i class='bx bx-link-external text-xl'></i></a>
+                            <a href="#" class="p-3 bg-slate-800 rounded-full text-white hover:bg-slate-700 transition hover:scale-110" title="Source Code"><i class='bx bxl-github text-xl'></i></a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-4">
+                            <span class="text-xs font-semibold text-blue-400 bg-blue-400/10 px-2.5 py-1 rounded-full">React</span>
+                            <span class="text-xs font-semibold text-cyan-400 bg-cyan-400/10 px-2.5 py-1 rounded-full">Tailwind</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">Aplikasi E-Commerce</h3>
+                        <p class="text-slate-400 text-sm mb-4 line-clamp-3">Deskripsi singkat mengenai aplikasi. Dibangun dengan fokus pada performa interaktif dan desain yang bersih untuk pengguna.</p>
+                    </div>
+                </div>
+
+                <!-- Projek Card 2 -->
+                <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden group hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/20">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projek 2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                            <a href="#" class="p-3 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition hover:scale-110" title="Live Preview"><i class='bx bx-link-external text-xl'></i></a>
+                            <a href="#" class="p-3 bg-slate-800 rounded-full text-white hover:bg-slate-700 transition hover:scale-110" title="Source Code"><i class='bx bxl-github text-xl'></i></a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-4">
+                            <span class="text-xs font-semibold text-yellow-400 bg-yellow-400/10 px-2.5 py-1 rounded-full">JS Vanilla</span>
+                            <span class="text-xs font-semibold text-orange-400 bg-orange-400/10 px-2.5 py-1 rounded-full">HTML/CSS</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">Landing Page Keuangan</h3>
+                        <p class="text-slate-400 text-sm mb-4 line-clamp-3">Desain responsif untuk platform teknologi finansial. Menyajikan animasi yang mulus menggunakan Vanilla CSS.</p>
+                    </div>
+                </div>
+
+                <!-- Projek Card 3 -->
+                <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden group hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/20">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projek 3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                            <a href="#" class="p-3 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition hover:scale-110" title="Live Preview"><i class='bx bx-link-external text-xl'></i></a>
+                            <a href="#" class="p-3 bg-slate-800 rounded-full text-white hover:bg-slate-700 transition hover:scale-110" title="Source Code"><i class='bx bxl-github text-xl'></i></a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex gap-2 mb-4 flex-wrap">
+                            <span class="text-xs font-semibold text-green-400 bg-green-400/10 px-2.5 py-1 rounded-full">Vue JS</span>
+                            <span class="text-xs font-semibold text-purple-400 bg-purple-400/10 px-2.5 py-1 rounded-full">Firebase</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">Aplikasi Catatan</h3>
+                        <p class="text-slate-400 text-sm mb-4 line-clamp-3">Aplikasi manajemen tugas dan catatan real-time dengan sistem autentikasi dari Firebase.</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="mt-12 text-center">
+                <a href="https://github.com/usernamekamu" target="_blank" class="inline-flex items-center gap-2 text-slate-300 hover:text-white border-b border-blue-500 pb-1 transition-colors">
+                    Lihat lebih banyak di GitHub <i class='bx bx-right-arrow-alt'></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kontak" class="py-24 relative overflow-hidden">
+        <!-- Dekorasi Background -->
+        <div class="absolute -top-10 -right-10 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-10"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-3xl p-8 md:p-12 shadow-2xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Mari Bekerja Sama</h2>
+                    <p class="text-slate-400 max-w-xl mx-auto">Saat ini saya sedang mencari peluang baru. Kotak masuk saya selalu terbuka. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, saya akan berusaha sebaik mungkin untuk membalas!</p>
+                </div>
+
+                <div class="flex flex-col items-center justify-center mt-10">
+                    <a href="mailto:emailanda@domain.com" class="px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-full hover:bg-blue-700 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] hover:-translate-y-1">
+                        Kirim Pesan
+                    </a>
+
+                    <!-- Sosial Media Links -->
+                    <div class="flex gap-6 mt-12">
+                        <a href="#" class="text-slate-400 hover:text-white hover:scale-110 hover:-translate-y-1 transition-all text-3xl">
+                            <i class='bx bxl-github'></i>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-blue-500 hover:scale-110 hover:-translate-y-1 transition-all text-3xl">
+                            <i class='bx bxl-linkedin-square'></i>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-pink-500 hover:scale-110 hover:-translate-y-1 transition-all text-3xl">
+                            <i class='bx bxl-instagram'></i>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-blue-400 hover:scale-110 hover:-translate-y-1 transition-all text-3xl">
+                            <i class='bx bxl-twitter'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-slate-800 bg-slate-950 text-center">
+        <p class="text-slate-500 text-sm">
+            Didesain & Dibangun oleh <span class="text-white font-medium">[Nama Anda]</span>
+        </p>
+        <p class="text-slate-600 text-xs mt-2">&copy; <span id="year"></span> Semua Hak Dilindungi.</p>
+    </footer>
+
+    <!-- JavaScript Ringan untuk interaktivitas -->
+    <script>
+        // Update tahun otomatis
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        
+        btn.addEventListener('click', () => {
+            if(menu.style.maxHeight) {
+                menu.style.maxHeight = null;
+                btn.innerHTML = "<i class='bx bx-menu'></i>";
+            } else {
+                menu.style.maxHeight = menu.scrollHeight + "px";
+                btn.innerHTML = "<i class='bx bx-x'></i>";
+            }
+        });
+
+        // Tutup menu saat link diklik (mobile)
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.style.maxHeight = null;
+                btn.innerHTML = "<i class='bx bx-menu'></i>";
+            });
+        });
+
+        // Efek Scrolled Navbar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg', 'bg-slate-900/90');
+                navbar.classList.remove('bg-slate-900/0');
+            } else {
+                navbar.classList.remove('shadow-lg', 'bg-slate-900/90');
+                navbar.classList.add('bg-slate-900/0');
+            }
+        });
+    </script>
+</body>
+</html>
