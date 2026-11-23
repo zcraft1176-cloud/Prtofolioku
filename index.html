@@ -3,126 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portofolio Achmad Zaky Ananta — Junior Web Developer. Membangun antarmuka web yang responsif, aksesibel, dan cepat.">
     <title>Portofolio | Achmad Zaky Ananta</title>
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
-    <!-- Tailwind CSS (Output) -->
     <link href="./src/output.css" rel="stylesheet">
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Boxicons untuk Icon -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <style>
+        :root {
+            --accent: #3b82f6;
+            --accent-2: #8b5cf6;
+            --accent-3: #ec4899;
+            --line: rgba(148, 163, 184, .14);
+        }
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
         }
-        /* Custom Animations */
-        @keyframes fade-in-up {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        h1, h2, h3, .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            letter-spacing: -.02em;
         }
-        .animate-fade-in-up {
-            animation: fade-in-up 0.8s ease-out forwards;
-        }
-        /* Glassmorphism */
-        .glass {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        /* Gradient Text */
         .text-gradient {
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-image: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899);
+            background-image: linear-gradient(to right, var(--accent), var(--accent-2), var(--accent-3));
+        }
+        /* Grid halus sebagai latar */
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, var(--line) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 40%, transparent 100%);
+        }
+        .glass {
+            background: rgba(2, 6, 23, .75);
+            backdrop-filter: blur(14px) saturate(150%);
+            -webkit-backdrop-filter: blur(14px) saturate(150%);
+            border-bottom: 1px solid var(--line);
+        }
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
+            transition-delay: var(--d, 0ms);
+        }
+        .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+        /* Marquee */
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 32s linear infinite;
+        }
+        .marquee:hover .marquee-track { animation-play-state: paused; }
+        .fade-x {
+            mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+        }
+        /* Bingkai gambar proyek */
+        .frame {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .08);
+            background: #0b1220;
+        }
+        .frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+            pointer-events: none;
+        }
+        /* Garis aksen atas kartu skill */
+        .skill-card { position: relative; overflow: hidden; }
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            inset-inline: 0;
+            top: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent-2), transparent);
+            opacity: 0;
+            transition: opacity .3s;
+        }
+        .skill-card:hover::before { opacity: 1; }
+        /* Indikator nav aktif */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            height: 1px;
+            width: 0;
+            background: currentColor;
+            transition: width .25s;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after { width: 100%; }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+            .marquee-track { animation: none; }
+            html { scroll-behavior: auto; }
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-300 antialiased selection:bg-blue-500 selection:text-white">
+<body class="bg-slate-950 text-slate-300 antialiased selection:bg-blue-500 selection:text-white overflow-x-hidden">
 
-    <!-- Header / Navbar -->
-    <header class="fixed w-full top-0 z-50 glass transition-all duration-300" id="navbar">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Logo -->
-            <a href="#" class="text-2xl font-bold text-white tracking-tighter">
-                Achmad Zaky<span class="text-blue-500">Ananta</span>
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 glass" id="navbar">
+        <div class="mx-auto max-w-6xl px-6 py-4 flex justify-between items-center">
+            <a href="#beranda" class="text-lg font-display font-bold text-white tracking-tight">
+                achmad<span class="text-blue-500">zaky</span><span class="text-slate-600">.dev</span>
             </a>
 
-            <!-- Desktop Menu -->
-            <nav class="hidden md:flex space-x-8 items-center">
-                <a href="#beranda" class="text-sm font-medium hover:text-blue-400 transition-colors">Beranda</a>
-                <a href="#tentang" class="text-sm font-medium hover:text-blue-400 transition-colors">Tentang</a>
-                <a href="#keahlian" class="text-sm font-medium hover:text-blue-400 transition-colors">Keahlian</a>
-                <a href="#projek" class="text-sm font-medium hover:text-blue-400 transition-colors">Projek</a>
-                <a href="#kontak" class="px-5 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-all shadow-[0_0_15px_rgba(37,99,235,0.5)] hover:shadow-[0_0_25px_rgba(37,99,235,0.7)]">
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#tentang" class="nav-link text-sm font-medium text-slate-400 hover:text-white transition-colors">Tentang</a>
+                <a href="#keahlian" class="nav-link text-sm font-medium text-slate-400 hover:text-white transition-colors">Keahlian</a>
+                <a href="#projek" class="nav-link text-sm font-medium text-slate-400 hover:text-white transition-colors">Projek</a>
+                <a href="#kontak" class="ml-2 px-5 py-2 text-sm font-semibold text-white bg-blue-600 rounded-full hover:bg-blue-500 transition-all shadow-[0_0_0_1px_rgba(59,130,246,.5)] hover:shadow-[0_0_24px_rgba(59,130,246,.45)]">
                     Hubungi Saya
                 </a>
             </nav>
 
-            <!-- Mobile Menu Toggle -->
-            <button class="md:hidden text-2xl text-white focus:outline-none" id="mobile-menu-btn">
+            <button class="md:hidden text-2xl text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded" id="mobile-menu-btn" aria-label="Buka menu" aria-expanded="false">
                 <i class='bx bx-menu'></i>
             </button>
         </div>
 
-        <!-- Mobile Menu -->
-        <div class="md:hidden absolute top-full left-0 w-full bg-slate-900 border-b border-slate-800 transition-all duration-300 overflow-hidden max-h-0" id="mobile-menu">
-            <div class="flex flex-col px-6 py-4 space-y-4 shadow-xl">
-                <a href="#beranda" class="text-base font-medium hover:text-blue-400 mobile-link">Beranda</a>
-                <a href="#tentang" class="text-base font-medium hover:text-blue-400 mobile-link">Tentang</a>
-                <a href="#keahlian" class="text-base font-medium hover:text-blue-400 mobile-link">Keahlian</a>
-                <a href="#projek" class="text-base font-medium hover:text-blue-400 mobile-link">Projek</a>
-                <a href="#kontak" class="text-base font-medium text-blue-400 mobile-link">Hubungi Saya</a>
+        <div class="md:hidden absolute top-full left-0 w-full bg-slate-950/95 backdrop-blur border-b border-slate-800 transition-all duration-300 overflow-hidden max-h-0" id="mobile-menu">
+            <div class="flex flex-col px-6 py-4 gap-1">
+                <a href="#tentang" class="py-2.5 text-base font-medium text-slate-300 hover:text-blue-400 mobile-link">Tentang</a>
+                <a href="#keahlian" class="py-2.5 text-base font-medium text-slate-300 hover:text-blue-400 mobile-link">Keahlian</a>
+                <a href="#projek" class="py-2.5 text-base font-medium text-slate-300 hover:text-blue-400 mobile-link">Projek</a>
+                <a href="#kontak" class="py-2.5 text-base font-medium text-blue-400 mobile-link">Hubungi Saya</a>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="beranda" class="min-h-screen flex items-center pt-20 relative overflow-hidden">
-        <!-- Background Elements Start -->
-        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-pulse"></div>
-        <div class="absolute top-40 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
-        <!-- Background Elements End -->
+    <!-- Hero -->
+    <section id="beranda" class="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden">
+        <div class="absolute inset-0 grid-bg opacity-70"></div>
+        <div class="absolute -top-24 left-1/4 w-[28rem] h-[28rem] bg-blue-600/20 rounded-full blur-[128px]"></div>
+        <div class="absolute top-1/3 -right-20 w-[26rem] h-[26rem] bg-violet-600/20 rounded-full blur-[128px]"></div>
 
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                
-                <!-- Text Content -->
-                <div class="flex-1 text-center md:text-left mt-10 md:mt-0 animate-fade-in-up">
-                    <p class="text-blue-500 font-semibold tracking-wide mb-2">👋 Halo, perkenalkan saya</p>
-                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight">
-                        Achmad Zaky Ananta
+        <div class="relative mx-auto max-w-6xl px-6 w-full">
+            <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-14 lg:gap-10 items-center">
+
+                <!-- Teks -->
+                <div>
+                    <span class="reveal inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900/60 px-3 py-1.5 text-xs font-medium text-slate-400 mb-7">
+                        <span class="relative flex h-1.5 w-1.5">
+                            <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping"></span>
+                            <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                        </span>
+                        Terbuka untuk peluang baru
+                    </span>
+
+                    <h1 class="reveal text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white leading-[1.05] mb-5" style="--d:80ms">
+                        Achmad Zaky<br>Ananta
                     </h1>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-gradient">
+
+                    <p class="reveal text-xl sm:text-2xl font-display font-semibold text-gradient mb-6" style="--d:160ms">
                         Junior Web Developer
-                    </h2>
-                    <p class="text-lg text-slate-400 mb-8 max-w-xl mx-auto md:mx-0 leading-relaxed">
-                        Saya membangun pengalaman digital yang menarik, responsif, dan mudah digunakan. Berfokus pada penulisan kode yang bersih dan desain modern.
                     </p>
-                    
-                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
-                        <a href="#projek" class="px-8 py-3.5 bg-white text-slate-900 font-semibold rounded-full hover:bg-slate-200 transition-all flex items-center gap-2 group">
-                            Lihat Projek <i class='bx bx-right-arrow-alt text-xl group-hover:translate-x-1 transition-transform'></i>
+
+                    <p class="reveal text-base sm:text-lg text-slate-400 leading-relaxed max-w-xl mb-9" style="--d:240ms">
+                        Saya membangun antarmuka web yang bersih, cepat, dan enak dipakai — dari satu halaman statis sampai aplikasi dengan autentikasi dan database sungguhan.
+                    </p>
+
+                    <div class="reveal flex flex-wrap gap-3 mb-12" style="--d:320ms">
+                        <a href="#projek" class="group inline-flex items-center gap-2 px-7 py-3.5 bg-white text-slate-900 font-semibold rounded-full hover:bg-slate-100 transition-all">
+                            Lihat Projek
+                            <i class='bx bx-right-arrow-alt text-xl group-hover:translate-x-1 transition-transform'></i>
                         </a>
-                        <a href="#kontak" class="px-8 py-3.5 border border-slate-700 bg-slate-800/50 text-white font-semibold rounded-full hover:bg-slate-800 transition-all">
-                            Download CV
+                        <a href="#kontak" class="inline-flex items-center gap-2 px-7 py-3.5 border border-slate-700 bg-slate-900/50 text-white font-semibold rounded-full hover:border-slate-500 hover:bg-slate-900 transition-all">
+                            <i class='bx bx-envelope text-lg'></i> Hubungi
                         </a>
                     </div>
+
+                    <dl class="reveal grid grid-cols-3 gap-6 max-w-md border-t border-slate-800 pt-6" style="--d:400ms">
+                        <div>
+                            <dt class="text-xs text-slate-500 mb-1">Proyek selesai</dt>
+                            <dd class="text-2xl font-display font-bold text-white">3</dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs text-slate-500 mb-1">Tahun belajar</dt>
+                            <dd class="text-2xl font-display font-bold text-white">2+</dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs text-slate-500 mb-1">Teknologi</dt>
+                            <dd class="text-2xl font-display font-bold text-white">8</dd>
+                        </div>
+                    </dl>
                 </div>
 
-                <!-- Image / Visual -->
-                <div class="flex-1 w-full max-w-md animate-fade-in-up" style="animation-delay: 0.2s;">
-                    <div class="relative group">
-                        <!-- Dekorasi border luar -->
-                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                        <div class="relative aspect-square rounded-full border-2 border-slate-800 overflow-hidden bg-slate-900 shadow-2xl">
-                            <!-- GANTI GAMBAR INI -->
-                            <img src="img/Profil2.jpeg" alt="Foto Profil" class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500">
+                <!-- Foto -->
+                <div class="reveal relative justify-self-center w-full max-w-[22rem]" style="--d:200ms">
+                    <div class="absolute -inset-3 bg-gradient-to-tr from-blue-600/30 via-violet-600/20 to-pink-600/20 rounded-[2rem] blur-2xl"></div>
+                    <div class="relative rounded-[1.75rem] border border-white/10 bg-slate-900/80 p-2 backdrop-blur">
+                        <div class="aspect-[4/5] overflow-hidden rounded-[1.4rem] bg-slate-800">
+                            <img src="img/Profil2.jpeg" alt="Foto Achmad Zaky Ananta" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
                         </div>
+                    </div>
+                    <div class="absolute -bottom-5 -left-4 flex items-center gap-2 rounded-xl border border-slate-700/80 bg-slate-900/95 px-3.5 py-2.5 shadow-xl backdrop-blur">
+                        <i class='bx bxl-javascript text-lg text-yellow-400'></i>
+                        <span class="text-xs font-medium text-slate-300">JavaScript &amp; Tailwind</span>
+                    </div>
+                    <div class="absolute -top-4 -right-2 flex items-center gap-2 rounded-xl border border-slate-700/80 bg-slate-900/95 px-3.5 py-2.5 shadow-xl backdrop-blur">
+                        <i class='bx bxl-firebase text-lg text-orange-400'></i>
+                        <span class="text-xs font-medium text-slate-300">Firebase</span>
                     </div>
                 </div>
 
@@ -130,259 +233,394 @@
         </div>
     </section>
 
-    <!-- Tentang Section -->
-    <section id="tentang" class="py-24 bg-slate-900/50">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row gap-16 items-center">
-                
-                <div class="flex-1 w-full relative">
-                    <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                        <!-- GANTI GAMBAR INI -->
-                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Me working" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-300">
+    <!-- Marquee stack -->
+    <div class="marquee fade-x border-y border-slate-800/80 bg-slate-900/30 py-4 overflow-hidden">
+        <div class="marquee-track gap-10 text-sm font-display font-medium text-slate-500 uppercase tracking-[0.2em]">
+            <span class="flex gap-10 shrink-0">
+                <span>HTML5</span><span class="text-blue-500/50">/</span>
+                <span>CSS3</span><span class="text-blue-500/50">/</span>
+                <span>JavaScript</span><span class="text-blue-500/50">/</span>
+                <span>Tailwind CSS</span><span class="text-blue-500/50">/</span>
+                <span>React</span><span class="text-blue-500/50">/</span>
+                <span>Git</span><span class="text-blue-500/50">/</span>
+                <span>Firebase</span><span class="text-blue-500/50">/</span>
+                <span>Vercel</span><span class="text-blue-500/50">/</span>
+            </span>
+            <span class="flex gap-10 shrink-0" aria-hidden="true">
+                <span>HTML5</span><span class="text-blue-500/50">/</span>
+                <span>CSS3</span><span class="text-blue-500/50">/</span>
+                <span>JavaScript</span><span class="text-blue-500/50">/</span>
+                <span>Tailwind CSS</span><span class="text-blue-500/50">/</span>
+                <span>React</span><span class="text-blue-500/50">/</span>
+                <span>Git</span><span class="text-blue-500/50">/</span>
+                <span>Firebase</span><span class="text-blue-500/50">/</span>
+                <span>Vercel</span><span class="text-blue-500/50">/</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Tentang -->
+    <section id="tentang" class="py-24 md:py-32 relative">
+        <div class="mx-auto max-w-6xl px-6">
+            <div class="grid lg:grid-cols-2 gap-14 items-center">
+
+                <!-- Terminal -->
+                <div class="reveal order-2 lg:order-1">
+                    <div class="rounded-2xl border border-slate-800 bg-[#080d17] shadow-2xl overflow-hidden">
+                        <div class="flex items-center gap-2 px-4 py-3 border-b border-slate-800/80 bg-slate-900/50">
+                            <span class="w-3 h-3 rounded-full bg-red-500/70"></span>
+                            <span class="w-3 h-3 rounded-full bg-yellow-500/70"></span>
+                            <span class="w-3 h-3 rounded-full bg-green-500/70"></span>
+                            <span class="ml-3 text-xs text-slate-500 font-mono">zsh — achmad@portfolio</span>
+                        </div>
+                        <pre class="p-5 text-[13px] leading-relaxed font-mono overflow-x-auto"><code><span class="text-emerald-400">$</span> <span class="text-slate-300">whoami</span>
+<span class="text-slate-400">achmad_zaky — junior web developer</span>
+
+<span class="text-emerald-400">$</span> <span class="text-slate-300">cat fokus.txt</span>
+<span class="text-slate-400">antarmuka yang aksesibel, cepat, dan enak dipakai</span>
+
+<span class="text-emerald-400">$</span> <span class="text-slate-300">ls skills/</span>
+<span class="text-blue-400">html5</span>   <span class="text-blue-400">css3</span>      <span class="text-blue-400">javascript</span>
+<span class="text-blue-400">tailwind</span> <span class="text-blue-400">react</span>    <span class="text-blue-400">git</span>
+<span class="text-blue-400">firebase</span> <span class="text-blue-400">vercel</span>
+
+<span class="text-emerald-400">$</span> <span class="text-slate-300">git log --oneline -3</span>
+<span class="text-yellow-400">a1b2c3d</span> <span class="text-slate-400">feat: redesign portofolio</span>
+<span class="text-yellow-400">78da7be</span> <span class="text-slate-400">feat: tambah proyek selesai</span>
+<span class="text-yellow-400">48dbef4</span> <span class="text-slate-400">chore: perbarui foto profil</span>
+
+<span class="text-emerald-400">$</span> <span class="text-slate-500 animate-pulse">▊</span></code></pre>
                     </div>
                 </div>
 
-                <div class="flex-1">
-                    <h3 class="text-blue-500 font-semibold mb-2 uppercase tracking-wider text-sm">Tentang Saya</h3>
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Secercah cerita tentang siapa saya.</h2>
-                    <p class="text-slate-400 mb-6 leading-relaxed">
-                        Halo! Nama saya Achmad Zaky Ananta dan saya sangat menyukai dunia pengembangan web. Ketertarikan saya pada web development dimulai pada 2024, sejak saat itu saya terus belajar dan bereksplorasi membangun berbagai solusi digital.
+                <!-- Narasi -->
+                <div class="reveal order-1 lg:order-2">
+                    <p class="text-blue-500 font-semibold mb-3 uppercase tracking-[0.15em] text-xs">Tentang Saya</p>
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-6 leading-tight">
+                        Belajar dengan membangun, bukan sekadar menonton tutorial.
+                    </h2>
+                    <p class="text-slate-400 mb-5 leading-relaxed">
+                        Ketertarikan saya pada web development dimulai tahun 2024. Sejak itu saya belajar dengan cara yang paling jujur: membuat hal yang benar-benar dipakai orang — aplikasi streaming musik, sistem laporan kerja divisi kampus, sampai situs edukasi.
                     </p>
                     <p class="text-slate-400 mb-8 leading-relaxed">
-                        Fokus utama saya saat ini adalah membangun aplikasi web yang inklusif, dapat diakses, dan ramah pengguna untuk berbagai kalangan. Saya senang bekerja menelusuri batas antara desain dan implementasi teknik yang kokoh.
+                        Fokus saya sekarang adalah membangun aplikasi web yang inklusif dan mudah diakses, sambil menelusuri batas antara desain yang enak dilihat dan implementasi teknis yang kokoh.
                     </p>
-                    
-                    <div class="grid grid-cols-2 gap-6 border-l-2 border-slate-800 pl-6">
-                        <div>
-                            <h4 class="text-4xl font-bold text-white mb-1">2+</h4>
-                            <p class="text-sm text-slate-500">Tahun Pengalaman</p>
-                        </div>
-                        <div>
-                            <h4 class="text-4xl font-bold text-white mb-1">4+</h4>
-                            <p class="text-sm text-slate-500">Projek Selesai</p>
-                        </div>
-                    </div>
+
+                    <ul class="space-y-3">
+                        <li class="flex gap-3 items-start">
+                            <i class='bx bx-check-circle text-lg text-emerald-400 mt-0.5'></i>
+                            <span class="text-sm text-slate-400">Terbiasa bekerja langsung dengan Firebase Auth, Firestore, dan security rules.</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <i class='bx bx-check-circle text-lg text-emerald-400 mt-0.5'></i>
+                            <span class="text-sm text-slate-400">Menulis CSS dengan Tailwind, tanpa framework berat kalau tidak perlu.</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <i class='bx bx-check-circle text-lg text-emerald-400 mt-0.5'></i>
+                            <span class="text-sm text-slate-400">Deploy rutin ke Vercel lewat Git, bukan upload manual.</span>
+                        </li>
+                    </ul>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- Keahlian Section -->
-    <section id="keahlian" class="py-24">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h3 class="text-blue-500 font-semibold mb-2 uppercase tracking-wider text-sm">Keahlian</h3>
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Teknologi yang Saya Gunakan</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto">Saya selalu mencoba menggunakan teknologi terbaru yang relevan untuk menyelesaikan masalah dan menciptakan produk terbaik.</p>
+    <!-- Keahlian -->
+    <section id="keahlian" class="py-24 md:py-32 bg-slate-900/40 border-y border-slate-800/70">
+        <div class="mx-auto max-w-6xl px-6">
+            <div class="max-w-2xl mb-14 reveal">
+                <p class="text-blue-500 font-semibold mb-3 uppercase tracking-[0.15em] text-xs">Keahlian</p>
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4">Teknologi yang saya pakai sehari-hari</h2>
+                <p class="text-slate-400">Bukan daftar panjang berisi logo asing — hanya yang benar-benar saya pakai untuk membangun proyek di bawah.</p>
             </div>
 
-            <!-- Grid Keahlian -->
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                
-                <!-- Skill Item -->
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group flex-1">
-                    <i class='bx bxl-html5 text-5xl text-orange-500 mb-3 group-hover:animate-bounce'></i>
-                    <span class="text-slate-300 font-medium font-sm text-center">HTML5</span>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="skill-card reveal bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-blue-500/50 transition-all hover:-translate-y-1">
+                    <i class='bx bxl-html5 text-4xl text-orange-500 mb-4 block'></i>
+                    <h3 class="text-sm font-semibold text-white mb-1">HTML5</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Struktur semantik, form, aksesibilitas dasar.</p>
                 </div>
-                
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group">
-                    <i class='bx bxl-css3 text-5xl text-blue-500 mb-3 group-hover:animate-bounce'></i>
-                    <span class="text-slate-300 font-medium font-sm">CSS3</span>
+                <div class="skill-card reveal bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-blue-500/50 transition-all hover:-translate-y-1" style="--d:60ms">
+                    <i class='bx bxl-css3 text-4xl text-blue-500 mb-4 block'></i>
+                    <h3 class="text-sm font-semibold text-white mb-1">CSS3</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Flexbox, Grid, animasi, responsive layout.</p>
                 </div>
-
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group">
-                    <i class='bx bxl-javascript text-5xl text-yellow-400 mb-3 group-hover:animate-bounce'></i>
-                    <span class="text-slate-300 font-medium font-sm">JavaScript</span>
+                <div class="skill-card reveal bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-blue-500/50 transition-all hover:-translate-y-1" style="--d:120ms">
+                    <i class='bx bxl-javascript text-4xl text-yellow-400 mb-4 block'></i>
+                    <h3 class="text-sm font-semibold text-white mb-1">JavaScript</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">DOM, fetch API, async/await, manipulasi state.</p>
                 </div>
-
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group">
-                    <i class='bx bxl-tailwind-css text-5xl text-cyan-400 mb-3 group-hover:animate-bounce'></i>
-                    <span class="text-slate-300 font-medium font-sm">Tailwind CSS</span>
+                <div class="skill-card reveal bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-blue-500/50 transition-all hover:-translate-y-1" style="--d:180ms">
+                    <i class='bx bxl-tailwind-css text-4xl text-cyan-400 mb-4 block'></i>
+                    <h3 class="text-sm font-semibold text-white mb-1">Tailwind CSS</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Utility-first, custom theme, build via CLI.</p>
                 </div>
-
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group">
-                    <i class='bx bxl-react text-5xl text-cyan-500 mb-3 group-hover:animate-bounce'></i>
-                    <span class="text-slate-300 font-medium font-sm">React JS</span>
+                <div class="skill-card reveal bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-blue-500/50 transition-all hover:-translate-y-1" style="--d:60ms">
+                    <i class='bx bxl-react text-4xl text-cyan-500 mb-4 block'></i>
+                    <h3 class="text-sm font-semibold text-white mb-1">React</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Komponen, props/state, hooks dasar.</p>
                 </div>
-
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group">
-                    <i class='bx bxl-git text-5xl text-red-500 mb-3 group-hover:animate-bounce'></i>
-                    <span class="text-slate-300 font-medium font-sm">Git</span>
+                <div class="skill-card reveal bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-blue-500/50 transition-all hover:-translate-y-1" style="--d:120ms">
+                    <i class='bx bxl-firebase text-4xl text-orange-400 mb-4 block'></i>
+                    <h3 class="text-sm font-semibold text-white mb-1">Firebase</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Auth Google, Firestore, security rules.</p>
                 </div>
-
-                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-blue-500 hover:scale-105 transition-all group">
-                    <i class='bx bxl-firebase text-5xl text-orange-400 mb-3 group-hover:animate-bounce'></i>
-                    <span class="text-slate-300 font-medium font-sm">Firebase</span>
+                <div class="skill-card reveal bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-blue-500/50 transition-all hover:-translate-y-1" style="--d:180ms">
+                    <i class='bx bxl-git text-4xl text-red-500 mb-4 block'></i>
+                    <h3 class="text-sm font-semibold text-white mb-1">Git</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Branching, commit disiplin, deploy via remote.</p>
+                </div>
+                <div class="skill-card reveal bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-blue-500/50 transition-all hover:-translate-y-1" style="--d:240ms">
+                    <i class='bx bx-cloud text-4xl text-slate-300 mb-4 block'></i>
+                    <h3 class="text-sm font-semibold text-white mb-1">Vercel</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Hosting statis, serverless function, domain.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projek Section -->
-    <section id="projek" class="py-24 bg-slate-900/50">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h3 class="text-blue-500 font-semibold mb-2 uppercase tracking-wider text-sm">Projek Pilihan</h3>
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Beberapa Karya Terbaru Saya</h2>
+    <!-- Projek -->
+    <section id="projek" class="py-24 md:py-32">
+        <div class="mx-auto max-w-6xl px-6">
+            <div class="max-w-2xl mb-16 reveal">
+                <p class="text-blue-500 font-semibold mb-3 uppercase tracking-[0.15em] text-xs">Projek Pilihan</p>
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4">Yang sudah selesai saya bangun</h2>
+                <p class="text-slate-400">Satu di antaranya sistem internal yang aksesnya terbatas, sisanya bisa langsung dibuka dan diuji.</p>
             </div>
 
-            <!-- Grid Projek -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Projek Card 1 -->
-                <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden group hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/20">
-                    <div class="relative overflow-hidden aspect-video">
-                        <img src="img/proj-music.png" alt="MscFree Music Stream" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                            <a href="https://msicfree.vercel.app" target="_blank" class="p-3 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition hover:scale-110" title="Live Preview"><i class='bx bx-link-external text-xl'></i></a>
-                            <a href="https://github.com/zcraft1176-cloud/Music" target="_blank" class="p-3 bg-slate-800 rounded-full text-white hover:bg-slate-700 transition hover:scale-110" title="Source Code"><i class='bx bxl-github text-xl'></i></a>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex gap-2 mb-4 flex-wrap">
-                            <span class="text-xs font-semibold text-yellow-400 bg-yellow-400/10 px-2.5 py-1 rounded-full">JavaScript</span>
-                            <span class="text-xs font-semibold text-cyan-400 bg-cyan-400/10 px-2.5 py-1 rounded-full">Tailwind</span>
-                            <span class="text-xs font-semibold text-purple-400 bg-purple-400/10 px-2.5 py-1 rounded-full">Firebase</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">MscFree — Music Streaming</h3>
-                        <p class="text-slate-400 text-sm mb-4 line-clamp-3">Aplikasi streaming musik gratis tanpa iklan. Pencarian lagu via Deezer API, pemutaran lewat YouTube IFrame, playlist dengan drag &amp; drop, dan sinkronisasi cloud lewat Google Sign-In + Firestore.</p>
-                    </div>
-                </div>
+            <div class="space-y-20">
 
-                <!-- Projek Card 2 -->
-                <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden group hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/20">
-                    <div class="relative overflow-hidden aspect-video">
-                        <img src="img/proj-laporan.png" alt="Website Laporan Pekerjaan" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                            <a href="https://websitelaporan-delta.vercel.app" target="_blank" class="p-3 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition hover:scale-110" title="Live Preview"><i class='bx bx-link-external text-xl'></i></a>
-                            <a href="https://github.com/zcraft1176-cloud/websitelaporan" target="_blank" class="p-3 bg-slate-800 rounded-full text-white hover:bg-slate-700 transition hover:scale-110" title="Source Code"><i class='bx bxl-github text-xl'></i></a>
+                <!-- Projek 1 -->
+                <article class="reveal grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
+                    <a href="https://msicfree.vercel.app" target="_blank" rel="noopener" class="frame group block">
+                        <img src="img/proj-music.png" alt="Tangkapan layar MscFree Music Streaming" class="w-full aspect-video object-cover group-hover:scale-[1.03] transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="inline-flex items-center gap-2 rounded-full bg-white text-slate-900 px-4 py-2 text-sm font-semibold">
+                                Buka situs <i class='bx bx-link-external'></i>
+                            </span>
+                        </div>
+                    </a>
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-xs font-mono text-slate-500">01</span>
+                            <span class="h-px flex-1 bg-slate-800"></span>
+                            <span class="text-xs font-medium text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded-full">Live</span>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-display font-bold text-white mb-3">MscFree — Music Streaming</h3>
+                        <p class="text-slate-400 leading-relaxed mb-5">
+                            Aplikasi streaming musik gratis tanpa iklan dan tanpa langganan. Metadata lagu diambil dari Deezer, audio diputar lewat YouTube IFrame, dan playlist tersinkron ke cloud setelah login Google.
+                        </p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Playlist dengan drag &amp; drop dan antrian pemutaran</li>
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Keyboard shortcut: spasi, panah untuk seek &amp; volume</li>
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Sinkronisasi Firestore lintas perangkat</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mb-7">
+                            <span class="text-xs font-medium text-yellow-400 bg-yellow-400/10 px-2.5 py-1 rounded-full">JavaScript</span>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-400/10 px-2.5 py-1 rounded-full">Tailwind</span>
+                            <span class="text-xs font-medium text-purple-400 bg-purple-400/10 px-2.5 py-1 rounded-full">Firebase</span>
+                            <span class="text-xs font-medium text-slate-400 bg-slate-400/10 px-2.5 py-1 rounded-full">Deezer API</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://msicfree.vercel.app" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-slate-900 text-sm font-semibold rounded-full hover:bg-slate-200 transition">
+                                Live Demo <i class='bx bx-right-arrow-alt text-lg'></i>
+                            </a>
+                            <a href="https://github.com/zcraft1176-cloud/Music" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-700 text-sm font-semibold text-slate-300 rounded-full hover:border-slate-500 hover:text-white transition">
+                                <i class='bx bxl-github text-lg'></i> Kode
+                            </a>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <div class="flex gap-2 mb-4 flex-wrap">
-                            <span class="text-xs font-semibold text-yellow-400 bg-yellow-400/10 px-2.5 py-1 rounded-full">JavaScript</span>
-                            <span class="text-xs font-semibold text-purple-400 bg-purple-400/10 px-2.5 py-1 rounded-full">Firebase</span>
-                            <span class="text-xs font-semibold text-orange-400 bg-orange-400/10 px-2.5 py-1 rounded-full">HTML/CSS</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">Website Laporan Pekerjaan</h3>
-                        <p class="text-slate-400 text-sm mb-4 line-clamp-3">Sistem pencatatan laporan harian &amp; proyek Divisi TI FMIPA UII. Login Google + whitelist email, upload foto sebelum/sesudah dengan kompresi otomatis, serta export PDF dan Word langsung dari browser.</p>
-                    </div>
-                </div>
+                </article>
 
-                <!-- Projek Card 3 -->
-                <div class="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden group hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/20">
-                    <div class="relative overflow-hidden aspect-video">
-                        <img src="img/proj-sejarah.png" alt="TechLegacy Sejarah Dunia Digital" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                            <a href="https://web-sejarah-sooty.vercel.app" target="_blank" class="p-3 bg-blue-600 rounded-full text-white hover:bg-blue-700 transition hover:scale-110" title="Live Preview"><i class='bx bx-link-external text-xl'></i></a>
-                            <a href="https://github.com/zcraft1176-cloud/web_sejarah" target="_blank" class="p-3 bg-slate-800 rounded-full text-white hover:bg-slate-700 transition hover:scale-110" title="Source Code"><i class='bx bxl-github text-xl'></i></a>
+                <!-- Projek 2 (internal, tidak bisa dicoba publik) -->
+                <article class="reveal grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
+                    <div class="lg:order-2">
+                        <div class="frame">
+                            <img src="img/proj-laporan.png" alt="Tangkapan layar Website Laporan Pekerjaan" class="w-full aspect-video object-cover">
                         </div>
                     </div>
-                    <div class="p-6">
-                        <div class="flex gap-2 mb-4 flex-wrap">
-                            <span class="text-xs font-semibold text-cyan-400 bg-cyan-400/10 px-2.5 py-1 rounded-full">Tailwind</span>
-                            <span class="text-xs font-semibold text-yellow-400 bg-yellow-400/10 px-2.5 py-1 rounded-full">JavaScript</span>
+                    <div class="lg:order-1">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-xs font-mono text-slate-500">02</span>
+                            <span class="h-px flex-1 bg-slate-800"></span>
+                            <span class="text-xs font-medium text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-full">Internal</span>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">TechLegacy — Sejarah Digital</h3>
-                        <p class="text-slate-400 text-sm mb-4 line-clamp-3">Website edukasi bertema linimasa: revolusi industri 1.0–4.0, sejarah komputer, masuknya internet ke Indonesia, hingga perkembangan teknologi komunikasi. Layout responsif dengan navigasi anchor.</p>
+                        <h3 class="text-2xl md:text-3xl font-display font-bold text-white mb-3">Website Laporan Pekerjaan</h3>
+                        <p class="text-slate-400 leading-relaxed mb-5">
+                            Sistem pencatatan laporan harian dan proyek untuk Divisi Teknologi Informasi FMIPA UII. Menggantikan rekap manual dengan catatan digital yang bisa diekspor jadi dokumen resmi.
+                        </p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Login email/Google dengan whitelist email dari admin</li>
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Upload foto sebelum/sesudah, kompresi otomatis di browser</li>
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Export PDF &amp; Word langsung tanpa server</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mb-7">
+                            <span class="text-xs font-medium text-yellow-400 bg-yellow-400/10 px-2.5 py-1 rounded-full">JavaScript</span>
+                            <span class="text-xs font-medium text-purple-400 bg-purple-400/10 px-2.5 py-1 rounded-full">Firebase</span>
+                            <span class="text-xs font-medium text-orange-400 bg-orange-400/10 px-2.5 py-1 rounded-full">HTML/CSS</span>
+                            <span class="text-xs font-medium text-slate-400 bg-slate-400/10 px-2.5 py-1 rounded-full">Firestore Rules</span>
+                        </div>
+                        <p class="inline-flex items-center gap-2 text-sm text-slate-500">
+                            <i class='bx bx-lock-alt text-lg'></i> Akses terbatas — hanya untuk anggota divisi
+                        </p>
                     </div>
-                </div>
+                </article>
+
+                <!-- Projek 3 -->
+                <article class="reveal grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
+                    <a href="https://web-sejarah-sooty.vercel.app" target="_blank" rel="noopener" class="frame group block">
+                        <img src="img/proj-sejarah.png" alt="Tangkapan layar TechLegacy Sejarah Dunia Digital" class="w-full aspect-video object-cover group-hover:scale-[1.03] transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="inline-flex items-center gap-2 rounded-full bg-white text-slate-900 px-4 py-2 text-sm font-semibold">
+                                Buka situs <i class='bx bx-link-external'></i>
+                            </span>
+                        </div>
+                    </a>
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-xs font-mono text-slate-500">03</span>
+                            <span class="h-px flex-1 bg-slate-800"></span>
+                            <span class="text-xs font-medium text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded-full">Live</span>
+                        </div>
+                        <h3 class="text-2xl md:text-3xl font-display font-bold text-white mb-3">TechLegacy — Sejarah Digital</h3>
+                        <p class="text-slate-400 leading-relaxed mb-5">
+                            Situs edukasi bergaya linimasa yang menelusuri perjalanan teknologi: revolusi industri 1.0 sampai 4.0, sejarah komputer, masuknya internet ke Indonesia, hingga perkembangan komunikasi.
+                        </p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Empat bagian dengan navigasi anchor dan scroll halus</li>
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Kartu era berisi gambar arsip dan ringkasan tiap periode</li>
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Layout responsif murni CSS, tanpa JavaScript framework</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2 mb-7">
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-400/10 px-2.5 py-1 rounded-full">Tailwind</span>
+                            <span class="text-xs font-medium text-yellow-400 bg-yellow-400/10 px-2.5 py-1 rounded-full">JavaScript</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://web-sejarah-sooty.vercel.app" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-slate-900 text-sm font-semibold rounded-full hover:bg-slate-200 transition">
+                                Live Demo <i class='bx bx-right-arrow-alt text-lg'></i>
+                            </a>
+                            <a href="https://github.com/zcraft1176-cloud/web_sejarah" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-700 text-sm font-semibold text-slate-300 rounded-full hover:border-slate-500 hover:text-white transition">
+                                <i class='bx bxl-github text-lg'></i> Kode
+                            </a>
+                        </div>
+                    </div>
+                </article>
 
             </div>
-            
-            <div class="mt-12 text-center">
-                <a href="https://github.com/zcraft1176-cloud" target="_blank" class="inline-flex items-center gap-2 text-slate-300 hover:text-white border-b border-blue-500 pb-1 transition-colors">
-                    Lihat lebih banyak di GitHub <i class='bx bx-right-arrow-alt'></i>
+
+            <div class="mt-20 text-center reveal">
+                <a href="https://github.com/zcraft1176-cloud" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-slate-400 hover:text-white border-b border-blue-500/60 hover:border-blue-400 pb-1 transition-colors">
+                    Lihat semua repositori di GitHub <i class='bx bx-right-arrow-alt text-lg'></i>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="kontak" class="py-24 relative overflow-hidden">
-        <!-- Dekorasi Background -->
-        <div class="absolute -top-10 -right-10 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-[128px] opacity-10"></div>
-        
-        <div class="container mx-auto px-6 relative z-10">
-            <div class="max-w-4xl mx-auto bg-slate-900 border border-slate-800 rounded-3xl p-8 md:p-12 shadow-2xl">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Mari Bekerja Sama</h2>
-                    <p class="text-slate-400 max-w-xl mx-auto">Saat ini saya sedang mencari peluang baru. Kotak masuk saya selalu terbuka. Baik Anda memiliki pertanyaan atau hanya ingin menyapa, saya akan berusaha sebaik mungkin untuk membalas!</p>
-                </div>
+    <!-- Kontak -->
+    <section id="kontak" class="py-24 md:py-32 relative overflow-hidden">
+        <div class="absolute inset-0 grid-bg opacity-40"></div>
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[30rem] h-[30rem] bg-blue-600/15 rounded-full blur-[128px]"></div>
 
-                <div class="flex flex-col items-center justify-center mt-10">
-                    <a href="mailto:emailanda@domain.com" class="px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-full hover:bg-blue-700 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)] hover:-translate-y-1">
-                        Kirim Pesan
-                    </a>
+        <div class="relative mx-auto max-w-3xl px-6 text-center reveal">
+            <p class="text-blue-500 font-semibold mb-3 uppercase tracking-[0.15em] text-xs">Kontak</p>
+            <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6 leading-tight">
+                Ada proyek yang bisa saya bantu?
+            </h2>
+            <p class="text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
+                Saya sedang terbuka untuk peluang baru. Kirim pesan kalau ada pertanyaan, tawaran kerja, atau sekadar ingin berdiskusi soal web.
+            </p>
 
-                    <!-- Sosial Media Links -->
-                    <div class="flex gap-6 mt-12">
-                        <a href="https://github.com/zcraft1176-cloud" target="_blank" class="text-slate-400 hover:text-white hover:scale-110 hover:-translate-y-1 transition-all text-3xl">
-                            <i class='bx bxl-github'></i>
-                        </a>
-                        <a href="#" class="text-slate-400 hover:text-blue-500 hover:scale-110 hover:-translate-y-1 transition-all text-3xl">
-                            <i class='bx bxl-linkedin-square'></i>
-                        </a>
-                        <a href="#" class="text-slate-400 hover:text-pink-500 hover:scale-110 hover:-translate-y-1 transition-all text-3xl">
-                            <i class='bx bxl-instagram'></i>
-                        </a>
-                        <a href="#" class="text-slate-400 hover:text-blue-400 hover:scale-110 hover:-translate-y-1 transition-all text-3xl">
-                            <i class='bx bxl-twitter'></i>
-                        </a>
-                    </div>
-                </div>
+            <!-- GANTI alamat email di bawah ini -->
+            <a href="mailto:zaky@example.com" class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-500 transition-all shadow-[0_0_28px_rgba(37,99,235,0.35)] hover:shadow-[0_0_40px_rgba(37,99,235,0.55)] hover:-translate-y-0.5">
+                <i class='bx bx-envelope text-lg'></i> Kirim Pesan
+            </a>
+
+            <div class="flex justify-center gap-5 mt-14">
+                <a href="https://github.com/zcraft1176-cloud" target="_blank" rel="noopener" aria-label="GitHub" class="w-11 h-11 grid place-items-center rounded-full border border-slate-800 text-slate-400 hover:text-white hover:border-slate-600 hover:-translate-y-1 transition-all text-xl">
+                    <i class='bx bxl-github'></i>
+                </a>
+                <a href="#" aria-label="LinkedIn" class="w-11 h-11 grid place-items-center rounded-full border border-slate-800 text-slate-400 hover:text-blue-500 hover:border-slate-600 hover:-translate-y-1 transition-all text-xl">
+                    <i class='bx bxl-linkedin-square'></i>
+                </a>
+                <a href="#" aria-label="Instagram" class="w-11 h-11 grid place-items-center rounded-full border border-slate-800 text-slate-400 hover:text-pink-500 hover:border-slate-600 hover:-translate-y-1 transition-all text-xl">
+                    <i class='bx bxl-instagram'></i>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 border-t border-slate-800 bg-slate-950 text-center">
-        <p class="text-slate-500 text-sm">
-            Didesain & Dibangun oleh <span class="text-white font-medium">Achmad Zaky Ananta</span>
-        </p>
-        <p class="text-slate-600 text-xs mt-2">&copy; <span id="year"></span> Semua Hak Dilindungi.</p>
+    <footer class="border-t border-slate-800/80 bg-slate-950">
+        <div class="mx-auto max-w-6xl px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-slate-500 text-sm">
+                &copy; <span id="year"></span> Achmad Zaky Ananta
+            </p>
+            <p class="text-slate-600 text-xs">
+                Dibangun dengan HTML, Tailwind CSS &amp; sedikit JavaScript.
+            </p>
+        </div>
     </footer>
 
-    <!-- JavaScript Ringan untuk interaktivitas -->
     <script>
-        // Update tahun otomatis
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Mobile Menu Toggle
+        // Menu mobile
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
-        
+
+        const closeMenu = () => {
+            menu.style.maxHeight = null;
+            btn.innerHTML = "<i class='bx bx-menu'></i>";
+            btn.setAttribute('aria-expanded', 'false');
+        };
+
         btn.addEventListener('click', () => {
-            if(menu.style.maxHeight) {
-                menu.style.maxHeight = null;
-                btn.innerHTML = "<i class='bx bx-menu'></i>";
+            if (menu.style.maxHeight) {
+                closeMenu();
             } else {
-                menu.style.maxHeight = menu.scrollHeight + "px";
+                menu.style.maxHeight = menu.scrollHeight + 'px';
                 btn.innerHTML = "<i class='bx bx-x'></i>";
+                btn.setAttribute('aria-expanded', 'true');
             }
         });
+        mobileLinks.forEach(l => l.addEventListener('click', closeMenu));
 
-        // Tutup menu saat link diklik (mobile)
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menu.style.maxHeight = null;
-                btn.innerHTML = "<i class='bx bx-menu'></i>";
-            });
-        });
-
-        // Efek Scrolled Navbar
+        // Navbar saat scroll
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-lg', 'bg-slate-900/90');
-                navbar.classList.remove('bg-slate-900/0');
-            } else {
-                navbar.classList.remove('shadow-lg', 'bg-slate-900/90');
-                navbar.classList.add('bg-slate-900/0');
+            navbar.classList.toggle('shadow-2xl', window.scrollY > 20);
+        }, { passive: true });
+
+        // Scroll reveal + indikator nav aktif
+        // Satu tick dipakai untuk keduanya: tanpa IntersectionObserver, karena elemen
+        // yang sudah terlewati (top < 0) harus tetap tampil saat deep-link / reload di tengah halaman.
+        const reveals = [...document.querySelectorAll('.reveal')];
+        const navLinks = [...document.querySelectorAll('.nav-link')];
+        // 'kontak' ikut dihitung walau tombolnya bukan .nav-link, agar tak ada nav menggantung aktif.
+        const sections = [...new Set([...navLinks.map(a => a.getAttribute('href')),
+                                       '#kontak'])]
+            .map(h => document.querySelector(h)).filter(Boolean);
+
+        const tick = () => {
+            const vh = window.innerHeight;
+            for (const el of reveals) {
+                if (!el.classList.contains('in') && el.getBoundingClientRect().top < vh - 80) {
+                    el.classList.add('in');
+                }
             }
-        });
+            let current = null;
+            for (const s of sections) {
+                if (s.getBoundingClientRect().top <= vh * 0.4) current = s.id;
+            }
+            navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+        };
+
+        window.addEventListener('scroll', tick, { passive: true });
+        window.addEventListener('resize', tick);
+        window.addEventListener('load', tick);
+        tick();
     </script>
 </body>
 </html>
