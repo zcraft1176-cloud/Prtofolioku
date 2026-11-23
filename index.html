@@ -429,7 +429,7 @@
                 <article class="reveal grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
                     <div class="lg:order-2">
                         <div class="frame">
-                            <img src="img/proj-laporan.png" alt="Tangkapan layar Website Laporan Pekerjaan" class="w-full aspect-video object-cover">
+                            <img src="img/proj-logistik.png" alt="Tangkapan layar Sistem Manajemen Logistik FMIPA UII" class="w-full aspect-video object-cover">
                         </div>
                     </div>
                     <div class="lg:order-1">
@@ -438,23 +438,26 @@
                             <span class="h-px flex-1 bg-slate-800"></span>
                             <span class="text-xs font-medium text-amber-400 bg-amber-400/10 px-2.5 py-1 rounded-full">Internal</span>
                         </div>
-                        <h3 class="text-2xl md:text-3xl font-display font-bold text-white mb-3">Website Laporan Pekerjaan</h3>
+                        <h3 class="text-2xl md:text-3xl font-display font-bold text-white mb-3">Sistem Manajemen Logistik FMIPA UII</h3>
                         <p class="text-slate-400 leading-relaxed mb-5">
-                            Sistem pencatatan laporan harian dan proyek untuk Divisi Teknologi Informasi FMIPA UII. Menggantikan rekap manual dengan catatan digital yang bisa diekspor jadi dokumen resmi.
+                            Aplikasi peminjaman dan serah terima inventaris untuk Divisi Teknologi Informasi FMIPA UII. Menggantikan pencatatan manual dengan alur pengajuan, persetujuan, dan dokumen resmi bertanda tangan yang dibuat otomatis oleh server.
                         </p>
                         <ul class="space-y-2 mb-6">
-                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Login email/Google dengan whitelist email dari admin</li>
-                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Upload foto sebelum/sesudah, kompresi otomatis di browser</li>
-                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Export PDF &amp; Word langsung tanpa server</li>
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Peminjaman &amp; serah terima dengan kode barang berpola unit, riwayat, dan penanda tangan yang terekam pada dokumen</li>
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Dokumen PDF dibuat server (pdf-lib) dengan sidik jari SHA-256; QR di kertas membawa versi + sidik jari sehingga pemalsuan bisa dibuktikan tanpa menyimpan gambar tanda tangan</li>
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Tiga jalur masuk: email/password, Google (wajib terdaftar admin), dan SSO kampus; hak akses dibatasi per unit kerja</li>
+                            <li class="flex gap-2.5 text-sm text-slate-400"><i class='bx bx-chevron-right text-blue-500 text-lg'></i>Tema gelap, katalog berkategori, ekspor/impor Excel, dan pencetakan label</li>
                         </ul>
                         <div class="flex flex-wrap gap-2 mb-7">
-                            <span class="text-xs font-medium text-yellow-400 bg-yellow-400/10 px-2.5 py-1 rounded-full">JavaScript</span>
-                            <span class="text-xs font-medium text-purple-400 bg-purple-400/10 px-2.5 py-1 rounded-full">Firebase</span>
-                            <span class="text-xs font-medium text-orange-400 bg-orange-400/10 px-2.5 py-1 rounded-full">HTML/CSS</span>
-                            <span class="text-xs font-medium text-slate-400 bg-slate-400/10 px-2.5 py-1 rounded-full">Firestore Rules</span>
+                            <span class="text-xs font-medium text-slate-300 bg-slate-300/10 px-2.5 py-1 rounded-full">Next.js</span>
+                            <span class="text-xs font-medium text-blue-400 bg-blue-400/10 px-2.5 py-1 rounded-full">TypeScript</span>
+                            <span class="text-xs font-medium text-cyan-400 bg-cyan-400/10 px-2.5 py-1 rounded-full">Tailwind</span>
+                            <span class="text-xs font-medium text-orange-400 bg-orange-400/10 px-2.5 py-1 rounded-full">MySQL</span>
+                            <span class="text-xs font-medium text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded-full">NextAuth</span>
+                            <span class="text-xs font-medium text-rose-400 bg-rose-400/10 px-2.5 py-1 rounded-full">pdf-lib</span>
                         </div>
                         <p class="inline-flex items-center gap-2 text-sm text-slate-500">
-                            <i class='bx bx-lock-alt text-lg'></i> Akses terbatas — hanya untuk anggota divisi
+                            <i class='bx bx-lock-alt text-lg'></i> Akses terbatas — hanya untuk pengguna terdaftar
                         </p>
                     </div>
                 </article>

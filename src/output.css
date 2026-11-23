@@ -24,6 +24,7 @@
     --color-purple-400: oklch(71.4% 0.203 305.504);
     --color-pink-500: oklch(65.6% 0.241 354.308);
     --color-pink-600: oklch(59.2% 0.249 0.584);
+    --color-rose-400: oklch(71.2% 0.194 13.428);
     --color-slate-100: oklch(96.8% 0.007 247.896);
     --color-slate-200: oklch(92.9% 0.013 255.508);
     --color-slate-300: oklch(86.9% 0.022 252.894);
@@ -69,7 +70,6 @@
     --leading-relaxed: 1.625;
     --radius-xl: 0.75rem;
     --radius-2xl: 1rem;
-    --animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
     --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --blur-2xl: 40px;
     --aspect-video: 16 / 9;
@@ -623,6 +623,12 @@
       background-color: color-mix(in oklab, var(--color-amber-400) 10%, transparent);
     }
   }
+  .bg-blue-400\/10 {
+    background-color: color-mix(in srgb, oklch(70.7% 0.165 254.624) 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-blue-400) 10%, transparent);
+    }
+  }
   .bg-blue-600 {
     background-color: var(--color-blue-600);
   }
@@ -672,6 +678,18 @@
     background-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 70%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-red-500) 70%, transparent);
+    }
+  }
+  .bg-rose-400\/10 {
+    background-color: color-mix(in srgb, oklch(71.2% 0.194 13.428) 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-rose-400) 10%, transparent);
+    }
+  }
+  .bg-slate-300\/10 {
+    background-color: color-mix(in srgb, oklch(86.9% 0.022 252.894) 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-slate-300) 10%, transparent);
     }
   }
   .bg-slate-400\/10 {
@@ -956,6 +974,9 @@
   }
   .text-red-500 {
     color: var(--color-red-500);
+  }
+  .text-rose-400 {
+    color: var(--color-rose-400);
   }
   .text-slate-300 {
     color: var(--color-slate-300);
@@ -1609,12 +1630,6 @@
 @property --tw-duration {
   syntax: "*";
   inherits: false;
-}
-@keyframes ping {
-  75%, 100% {
-    transform: scale(2);
-    opacity: 0;
-  }
 }
 @keyframes pulse {
   50% {
